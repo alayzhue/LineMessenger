@@ -12,5 +12,7 @@ jobs:
         with:
           node-version: 20
       - run: npm install -g eas-cli
-      - run: npm install   # ← БЫЛО npm ci, СТАЛО npm install
+      - run: npm install
       - run: eas build -p android --profile preview --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}

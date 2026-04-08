@@ -1,9 +1,8 @@
 name: Build APK
-
 on:
   push:
     branches: [ main ]
-
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,9 +11,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - run: npm install
-      - run: npx expo export --platform android
-      - uses: actions/upload-artifact@v4
-        with:
-          name: app
-          path: dist/
+      - run: npm install -g eas-cli
+      - run: npm ci
+      - run: eas build -p android --profile preview --non-interactive
